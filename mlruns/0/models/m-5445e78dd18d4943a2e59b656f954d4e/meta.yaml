@@ -1,0 +1,10 @@
+artifact_location: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/models/m-5445e78dd18d4943a2e59b656f954d4e/artifacts
+creation_timestamp: 1751672357883
+experiment_id: '0'
+last_updated_timestamp: 1751672363101
+model_id: m-5445e78dd18d4943a2e59b656f954d4e
+model_type: null
+name: XGBRegressor Model
+source_run_id: 0e1d2dcfee7f4311bc490ae16bb30517
+status: 2
+status_message: null

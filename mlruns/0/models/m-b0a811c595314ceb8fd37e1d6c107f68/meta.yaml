@@ -1,0 +1,10 @@
+artifact_location: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/models/m-b0a811c595314ceb8fd37e1d6c107f68/artifacts
+creation_timestamp: 1751836434251
+experiment_id: '0'
+last_updated_timestamp: 1751836437741
+model_id: m-b0a811c595314ceb8fd37e1d6c107f68
+model_type: null
+name: Ridge Model
+source_run_id: null
+status: 2
+status_message: null

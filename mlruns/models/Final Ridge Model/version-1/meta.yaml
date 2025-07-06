@@ -1,0 +1,18 @@
+aliases: []
+creation_timestamp: 1751835819019
+current_stage: None
+deployment_job_state: null
+description: null
+last_updated_timestamp: 1751835819019
+metrics: null
+model_id: m-32f85178c1654ff4b127dce927a5f4b1
+name: Final Ridge Model
+params: null
+run_id: df1a4e402dd64b55aa44fd8c3e598825
+run_link: null
+source: models:/m-32f85178c1654ff4b127dce927a5f4b1
+status: READY
+status_message: null
+storage_location: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/models/m-32f85178c1654ff4b127dce927a5f4b1/artifacts
+user_id: null
+version: 1

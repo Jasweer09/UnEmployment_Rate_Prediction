@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/df1a4e402dd64b55aa44fd8c3e598825/artifacts
+end_time: 1751835836162
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: df1a4e402dd64b55aa44fd8c3e598825
+run_name: Final_Ridge_Model
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751835802924
+status: 3
+tags: []
+user_id: jaswe

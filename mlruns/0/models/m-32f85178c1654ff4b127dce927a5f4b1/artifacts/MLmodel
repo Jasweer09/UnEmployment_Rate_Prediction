@@ -1,0 +1,22 @@
+artifact_path: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/models/m-32f85178c1654ff4b127dce927a5f4b1/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.0
+mlflow_version: 3.1.1
+model_id: m-32f85178c1654ff4b127dce927a5f4b1
+model_size_bytes: 1379
+model_uuid: m-32f85178c1654ff4b127dce927a5f4b1
+prompts: null
+run_id: df1a4e402dd64b55aa44fd8c3e598825
+utc_time_created: '2025-07-06 21:03:23.137345'

@@ -1,0 +1,10 @@
+artifact_location: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/models/m-54e2211fc0ac448d8353385ba30d8ef6/artifacts
+creation_timestamp: 1751668779755
+experiment_id: '0'
+last_updated_timestamp: 1751668784186
+model_id: m-54e2211fc0ac448d8353385ba30d8ef6
+model_type: null
+name: Random Forest Model
+source_run_id: 30580983230d4bda85902230093265f0
+status: 2
+status_message: null

@@ -1,26 +1,37 @@
-# Ignore Python bytecode and cache
+# Python bytecode
 __pycache__/
 *.py[cod]
-*.so
 
-# Ignore virtual environment folder
+# Virtual environment
 venv/
+env/
 .venv/
 
-# Ignore environment files
-.env
-*.env
+# MLflow artifacts and logs
+mlruns/
+mlflow.db
 
-# Ignore Jupyter Notebook checkpoints
+# FastAPI or other logs
+logs/
+*.log
+
+# Jupyter Notebooks
 .ipynb_checkpoints/
 
-# Ignore macOS and Windows system files
+# Data files
+*.csv
+*.tsv
+*.json
+*.pickle
+
+# Model files
+*.pkl
+*.h5
+
+# IDE or editor settings
+.idea/
+.vscode/
+
+# System files
 .DS_Store
 Thumbs.db
-
-# Ignore logs and SQLite database files
-*.log
-*.sqlite3
-
-# Ignore VSCode settings (optional)
-.vscode/

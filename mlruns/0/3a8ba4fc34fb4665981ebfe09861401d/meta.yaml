@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/3a8ba4fc34fb4665981ebfe09861401d/artifacts
+end_time: 1751835145360
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3a8ba4fc34fb4665981ebfe09861401d
+run_name: bedecked-mare-324
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751828260868
+status: 3
+tags: []
+user_id: jaswe

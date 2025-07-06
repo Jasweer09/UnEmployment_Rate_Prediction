@@ -1,0 +1,14 @@
+artifact_uri: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/0e1d2dcfee7f4311bc490ae16bb30517/artifacts
+end_time: 1751827025586
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0e1d2dcfee7f4311bc490ae16bb30517
+run_name: merciful-bear-638
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751672357618
+status: 3
+tags: []
+user_id: jaswe

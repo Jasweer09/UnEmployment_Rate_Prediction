@@ -1,0 +1,10 @@
+artifact_location: file:///c:/Users/jaswe/OneDrive/Desktop/opt/Projects/UnEmployment_Rate_Prediction/mlruns/0/models/m-73936ea597284cc28052fd3a29a376a3/artifacts
+creation_timestamp: 1751835139650
+experiment_id: '0'
+last_updated_timestamp: 1751835145343
+model_id: m-73936ea597284cc28052fd3a29a376a3
+model_type: null
+name: LightGBM
+source_run_id: 3a8ba4fc34fb4665981ebfe09861401d
+status: 2
+status_message: null
