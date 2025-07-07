@@ -1,7 +1,7 @@
 import mlflow
 from mlflow.sklearn import load_model
 
-def load_ridge_model(model_uri: str = "models:/Final Ridge Model/Production"):
+def load_ridge_model(model_uri: str = "models:/FinalRidgeModel/Production"):
     """
     Load Ridge regression model from MLflow registry.
     """

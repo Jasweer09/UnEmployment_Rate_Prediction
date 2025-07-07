@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.impute import SimpleImputer
 
 def add_lag_features(df: pd.DataFrame, columns: list, lags: int = 4) -> pd.DataFrame:
     for col in columns:
@@ -14,15 +15,37 @@ def add_rolling_features(df: pd.DataFrame, columns: list, windows: list = [3, 6]
     return df
 
 def add_date_parts(df: pd.DataFrame) -> pd.DataFrame:
-    df['date'] = pd.to_datetime(df['date'])
-    df['month'] = df['date'].dt.month
-    df['year'] = df['date'].dt.year
-    df['quarter'] = df['date'].dt.quarter
+    # Ensure 'date' column is in datetime format
+    df['date'] = pd.to_datetime(df['date'], errors='coerce')  # Convert to datetime, handle errors
+    
+    # Check for null values after conversion
+    if df['date'].isnull().any():
+        print("❌ Warning: There are invalid date values after conversion.")
+    
+    # Convert date to number of days since the first date in the dataset
+    df['date'] = (df['date'] - df['date'].min()).dt.days
+    
+    # Add month, year, and quarter as additional features
+    df['month'] = df['date'].apply(lambda x: pd.Timestamp(x).month)
+    df['year'] = df['date'].apply(lambda x: pd.Timestamp(x).year)
+    df['quarter'] = df['date'].apply(lambda x: pd.Timestamp(x).quarter)
+    
     return df
+
 
 def prepare_features(df: pd.DataFrame, feature_cols: list) -> pd.DataFrame:
     df = df.sort_values('date').reset_index(drop=True)
-    df = add_lag_features(df, feature_cols)
-    df = add_rolling_features(df, feature_cols)
+    print("Sorting compled")
+    #df = add_lag_features(df, feature_cols)
+    print("added lag features compled")
+    #df = add_rolling_features(df, feature_cols)
+    print("added rolling features compled")
     df = add_date_parts(df)
+    print("added date compled")
+    print("df size", df.shape, df.isna().sum())
+    # Impute missing values before training or prediction
+    imputer = SimpleImputer(strategy='mean')  # Can also use 'median' or other strategies
+    df = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
+    print("df size after imputer", df.shape)
+    print('prepare feature completed')
     return df
