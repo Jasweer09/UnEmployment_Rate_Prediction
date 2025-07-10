@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from app.featue_engineering import prepare_features
-from app.model_loader import load_ridge_model
+from featue_engineering import prepare_features
+from model_loader import load_ridge_model
 from sklearn.preprocessing import StandardScaler
 
 # Load the model
@@ -69,25 +69,26 @@ async def predict(input_data: UserInput):
             'JTSJOL', 'CIVPART', 'ICSA', 'ICNSA', 'CCSA', 'CCNSA', 'PAYEMS', 'UNRATE'])
 
         print(f"⚙️ Prepared features. Columns after feature engineering: {prepared_data.columns}")
-
-        # Extract last row (latest data after features were added)
         
-        last_row = prepared_data.iloc[-1:]
+        # Extract last row (latest data after features were added)
+        data = prepared_data.drop(columns = ['date'], axis = 1)
+        scaler.fit_transform(data.iloc[:-1])
+        last_row = data.iloc[-1:]
         print('type: ',type(last_row))
         # Drop the target column to prevent leakage
         print(f"🔍 Features for prediction: {last_row.shape}")
-        X = last_row.drop(columns=['date'],axis = 1)
-        scaler.fit_transform(X.iloc[:6,:])
         
-        print(f"🔍 Features for prediction: {X.values}", X.values.size)
+        
+        
+        print(f"🔍 Features for prediction: {last_row.values}", last_row.values.size)
         # Predict UNRATE
         
-        predicted_unrate = model.predict(scaler.transform(X))
+        predicted_unrate = model.predict(scaler.transform(last_row))
         
         print(f"🔮 Prediction result: {predicted_unrate[0]}")
 
         # Save this prediction to the history cache (so it's used for future predictions)
-        last_row['UNRATE'] = np.abs(predicted_unrate[0])
+        #last_row['UNRATE'] = np.abs(predicted_unrate[0])
         last_row.to_csv("history_cache.csv", mode='a', header=False, index=False)
 
         print(f"📈 Updated history cache with new prediction.")
