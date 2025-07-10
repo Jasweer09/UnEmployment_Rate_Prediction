@@ -19,7 +19,7 @@ logs/
 .ipynb_checkpoints/
 
 # Data files
-*.csv
+
 *.tsv
 *.json
 *.pickle
