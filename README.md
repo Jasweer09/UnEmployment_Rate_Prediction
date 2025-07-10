@@ -50,21 +50,7 @@ Layer	Technology
 📁 Storage	CSV (for history & caching)
 🐍 Language	Python 3.10+
 
-📂 **Folder Structure**
-bash
-Copy
-Edit
-project/
-├── app/
-│   ├── main.py                  # FastAPI app
-│   ├── model_loader.py          # MLflow model loader
-│   ├── feature_engineering.py   # Lag/Rolling generation
-│   ├── history_cache.csv        # Input & prediction cache
-│   └── frontend/                # HTML UI
-├── mlflow.db                    # MLflow tracking database
-├── requirements.txt             # Python dependencies
-├── .dockerignore / Dockerfile   # Containerization files
-└── README.md
+
 🧪 How to Use
 1. 🔨 **Train & Log Model**
 Run your notebook/script to train Ridge Regression
