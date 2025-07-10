@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unemployment Rate Predictor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    .info-icon {
+      cursor: pointer;
+      margin-left: 5px;
+      color: #0d6efd;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">📈 U.S. Unemployment Rate Predictor</h2>
+    <form id="predictionForm">
+
+      <!-- Date input -->
+      <div class="mb-3">
+        <label class="form-label">Date (YYYY-MM)</label>
+        <input type="month" class="form-control" name="date" required />
+      </div>
+
+      <!-- Input fields with tooltips -->
+      <div class="mb-3">
+        <label class="form-label">JTSJOL - Job Openings
+          <span class="info-icon" data-bs-toggle="popover" title="JTSJOL" data-bs-content="Total number of job openings across industries, in thousands. Typically ranges from 8000 to 12000.">ℹ️</span>
+        </label>
+        <input type="number" class="form-control" name="JTSJOL" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">CIVPART - Civilian Labor Force Participation Rate (%)
+          <span class="info-icon" data-bs-toggle="popover" title="CIVPART" data-bs-content="Percentage of working-age population that is either employed or actively seeking work. Typical range: 60% to 65%.">ℹ️</span>
+        </label>
+        <input type="number" step="0.1" class="form-control" name="CIVPART" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">ICSA - Initial Jobless Claims (Seasonally Adjusted)
+          <span class="info-icon" data-bs-toggle="popover" title="ICSA" data-bs-content="Weekly claims for unemployment insurance benefits, adjusted for seasonality. Usually between 200,000 to 300,000.">ℹ️</span>
+        </label>
+        <input type="number" class="form-control" name="ICSA" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">ICNSA - Initial Jobless Claims (Not Seasonally Adjusted)
+          <span class="info-icon" data-bs-toggle="popover" title="ICNSA" data-bs-content="Raw weekly claims data without seasonal adjustment. Typically ranges from 180,000 to 280,000.">ℹ️</span>
+        </label>
+        <input type="number" class="form-control" name="ICNSA" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">CCSA - Continued Claims (Seasonally Adjusted)
+          <span class="info-icon" data-bs-toggle="popover" title="CCSA" data-bs-content="Number of individuals receiving unemployment benefits after their initial claim, seasonally adjusted. Normal range: 1.5M - 2.0M.">ℹ️</span>
+        </label>
+        <input type="number" class="form-control" name="CCSA" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">CCNSA - Continued Claims (Not Seasonally Adjusted)
+          <span class="info-icon" data-bs-toggle="popover" title="CCNSA" data-bs-content="Same as CCSA but not seasonally adjusted. Typically between 1.4M and 1.9M.">ℹ️</span>
+        </label>
+        <input type="number" class="form-control" name="CCNSA" required />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">PAYEMS - Total Nonfarm Payroll Employment
+          <span class="info-icon" data-bs-toggle="popover" title="PAYEMS" data-bs-content="Total U.S. employment in nonfarm industries, measured in thousands. Generally between 140,000 and 160,000.">ℹ️</span>
+        </label>
+        <input type="number" class="form-control" name="PAYEMS" required />
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">🔍 Predict Unemployment Rate</button>
+    </form>
+
+    <div id="result" class="mt-4 alert d-none"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Initialize popovers
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    [...popoverTriggerList].forEach(trigger => new bootstrap.Popover(trigger));
+
+    // Form submit handler
+    document.getElementById("predictionForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const payload = {};
+      for (const [key, value] of formData.entries()) {
+        payload[key] = isNaN(value) ? value : Number(value);
+      }
+
+      const response = await fetch("/predict/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+      const resultDiv = document.getElementById("result");
+
+      if (response.ok) {
+        resultDiv.className = "mt-4 alert alert-success";
+        resultDiv.innerHTML = `<strong>Predicted Unemployment Rate:</strong> ${result.predicted_UNRATE.toFixed(2)}%<br><em>${result.note}</em>`;
+      } else {
+        resultDiv.className = "mt-4 alert alert-danger";
+        resultDiv.innerText = "❌ Error: " + (result.detail || "Something went wrong.");
+      }
+    });
+  </script>
+</body>
+</html>

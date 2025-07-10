@@ -1,10 +1,11 @@
+from fastapi.middleware.cors import CORSMiddleware
 import os
 import pandas as pd
 import numpy as np
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from featue_engineering import prepare_features
-from model_loader import load_ridge_model
+from app.featue_engineering import prepare_features
+from app.model_loader import load_ridge_model
 from sklearn.preprocessing import StandardScaler
 
 # Load the model
@@ -12,7 +13,13 @@ model = load_ridge_model()
 
 # Initialize FastAPI
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or specify your frontend domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Define the Pydantic model for input validation
 class UserInput(BaseModel):
     date: str
@@ -26,19 +33,19 @@ class UserInput(BaseModel):
 
 # Function to ensure history cache exists
 def initialize_cache():
-    if not os.path.exists("history_cache.csv"):
+    if not os.path.exists("app/history_cache.csv"):
         empty_df = pd.DataFrame(columns=[
             'date', 'JTSJOL', 'CIVPART', 'ICSA', 'ICNSA', 'CCSA', 'CCNSA', 'PAYEMS', 'UNRATE'
         ])
-        empty_df.to_csv("history_cache.csv", index=False)
+        empty_df.to_csv("app/history_cache.csv", index=False)
         print("❗ Initialized empty history_cache.csv.")
     else:
         # Check if the file is empty
-        if os.stat("history_cache.csv").st_size == 0:
+        if os.stat("app/history_cache.csv").st_size == 0:
             empty_df = pd.DataFrame(columns=[
                 'date', 'JTSJOL', 'CIVPART', 'ICSA', 'ICNSA', 'CCSA', 'CCNSA', 'PAYEMS', 'UNRATE'
             ])
-            empty_df.to_csv("history_cache.csv", index=False)
+            empty_df.to_csv("app/history_cache.csv", index=False)
             print("❗ history_cache.csv was empty. Initialized with columns.")
 
 # Ensure cache file exists
@@ -54,7 +61,7 @@ async def predict(input_data: UserInput):
         user_data = pd.DataFrame([input_data.dict()])
 
         # Load historical data (in this case, 'history_cache.csv')
-        history_data = pd.read_csv("history_cache.csv")
+        history_data = pd.read_csv("app/history_cache.csv")
         scaler = StandardScaler()
         
         print(f"📊 Loaded history data. Current data size: {history_data.shape}")
@@ -89,7 +96,7 @@ async def predict(input_data: UserInput):
 
         # Save this prediction to the history cache (so it's used for future predictions)
         #last_row['UNRATE'] = np.abs(predicted_unrate[0])
-        last_row.to_csv("history_cache.csv", mode='a', header=False, index=False)
+        last_row.to_csv("app/history_cache.csv", mode='a', header=False, index=False)
 
         print(f"📈 Updated history cache with new prediction.")
 
