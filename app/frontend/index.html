@@ -96,7 +96,7 @@
         payload[key] = isNaN(value) ? value : Number(value);
       }
 
-      const response = await fetch("/predict/", {
+      const response = await fetch("https://unemployment-rate-prediction.onrender.com/predict/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

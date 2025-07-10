@@ -25,7 +25,7 @@ logs/
 *.pickle
 
 # Model files
-*.pkl
+
 *.h5
 
 # IDE or editor settings
